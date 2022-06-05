@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import './adminForm.css';
 //  BootStrap Components
@@ -19,36 +19,39 @@ import Button from '@mui/material/Button';
 // import { v4 } from 'uuid';
 // Firebase DB
 import { addDoc, collection } from 'firebase/firestore';
-// import {
-//   ref,
-//   uploadBytes,
-//   getDownloadURL,
-
-// } from 'firebase/storage';
-import db from '../../db';
+import {
+  ref,
+  uploadBytes,
+  getDownloadURL,
+} from 'firebase/storage';
+import { db, imgDB } from '../../db';
 
 export default function AdminForm() {
   // React Form Validation Hook
   const { register, formState: { errors }, handleSubmit } = useForm();
   // Only gets called if theres no errors
+  const [img, setImg] = useState(null);
+  const [imgURL, setImgURL] = useState(null);
   const onSubmit = (data) => {
-    // const uploadFile = () => {
-    //   if (data.img == null) return;
-    //   const imageRef = ref(storage, `images/${data.itemName + v4()}`);
-    //   uploadBytes(imageRef, data.img).then((snapshot) => {
-    //     getDownloadURL(snapshot.ref).then((url) => {
-    //       console.log(url);
-    //     });
-    //   });
-    // };
-    // uploadFile();
+    const uploadFile = () => {
+      if (img == null) return;
+      const imageRef = ref(imgDB, `img/${data.itemName}_img`);
+      uploadBytes(imageRef, img).then((snapshot) => {
+        getDownloadURL(snapshot.ref).then((url) => {
+          console.log(url);
+          setImgURL(url);
+        });
+      });
+    };
+    uploadFile();
+    if (imgURL == null) return;
     const entriesRef = collection(db, 'storeItems');
     console.log(data);
     addDoc(entriesRef, {
       itemName: data.itemName,
       itemGender: data.gender,
       itemQuantity: data.quantity,
-      itemImg: '',
+      itemImg: imgURL,
       itemSalePercent: data.salePercent,
       createdAt: new Date(),
     });
@@ -68,9 +71,6 @@ export default function AdminForm() {
       document.getElementById('saleField').value = '';
     }
   };
-  // const handleSaleChange = (e) => {
-  //   setSale(sale + e.target.value);
-  // };
   return (
     <div className="adminFormContainer">
       <Card className="adminFormCard">
@@ -115,7 +115,7 @@ export default function AdminForm() {
             </Form.Group>
             <Form.Group className="mb-3 itemImgField" controlId="ItemImgID">
               <Form.Label>Image</Form.Label>
-              <input type="file" {...register('img', { required: true })} />
+              <input type="file" {...register('img', { required: true })} onChange={(event) => { setImg(event.target.files[0]); }} />
               <div className="errors">
                 {errors.img?.type === 'required' && 'File Missing'}
               </div>

@@ -1,0 +1,103 @@
+Task 1: BUILD front end COMPONENTS FOR /admin 
+    
+    component 1: Form for admin to admin to send information to firebase 
+                must take in images ie: import {ref, uploadBytes} from "firebase/storage";
+    component 2: card for firebase items to display
+
+Task 2: CONNECT firebase TO react
+    
+Task 3: TEST firebase IN react
+
+    from /admin send info to firabase and see if card components map()
+
+    from /admin delete item 
+
+    from /admin update item quantity
+
+    from /admin update price 
+
+    from /admin update isOnSale
+
+Task 4: BUILD front end COMPONENTS FOR /index
+    
+    component 1: Nav bar(logo  signin / create account)
+    
+    component 2: carusel using bootstrap pull items from firebase if(isOnSale) limit 3
+    
+    component 3: firebase query navbar that returns items
+
+Task 5: BUILD front end COMPONENTS FOR /cart 
+    
+    component 1: item card with update and delete buttons
+    buttons: buy
+
+Task 6: TEST items IN cart
+
+  send items to /cart with useState() from /index 
+
+Task 7: IN firebase CREATE new COLLECTION users
+
+Task 8: BUILD front end COMPONENTS FOR /create_user_profile
+
+    component 1: form(email, username, password, firstName, lastName, gender, race) 
+      *ensure form validation
+
+Task 9: LINK /create_user_profile TO firebase IN collection=users
+
+Task 10: FROM /create_user_profile SEND newUsers TO firebase IN collection=users AND CREATE new doc
+
+Task 11: usernames cant repeat in firebase therefore useState() to query firebase and if it matches return error 
+
+Task 12: UPDATE /create_user_profile COMPONENT form(password) must pass through sha256() AND sha256(password) IS new PASSWORD
+
+Task 13: BUILD front end COMPONENTS FOR /signin
+
+        component 1: form(username, password)
+                  passsword field will go through sha256() and match the string in firbase and username 
+
+Task 14: IN firebase CREATE new COLLECTION admin 
+
+Task 15: IN firebase COLLECTION admin CREATE newDoc = key
+
+        * the key will be a manually hash password that will be set via the firabase store 
+        **when the key is entered in ui it will get hashed to match the firabase string
+
+Task 16: BUILD front end COMPONENTS FOR /admin
+
+      component 1: form(key)
+
+Task 17: LOCK visability of /admin until key is entered
+
+Task 18: CREATE user sessions BY USING local storage
+
+Task 19: CREATE /index/{username}
+        
+        **it will be the same UI as /index BUT it will remove signin/create_user_profile buttons AND REPLACE WITH hello {username}
+
+
+TASK 20: Deploy on AWS Amplify
+
+********** AT THIS POINT THE REQUIREMENTS HAVE BEEN MET FOR UW **************************
+
+
+***********IF THERES TIME***************************************
+
+
+Task 21: implement ua-parser-js library to /create_user_profile and signin and update firebase fields 
+
+Task 22: implement ip_collections API  to /create_user_profile and signin and update firebase fields
+
+Task 23: BUILD front end COMPONENTS FOR /admin
+
+        component 1: Top 3 customers from firebase(purchaseHist && mostView)
+        component 2: Top 2 devices from firebase
+        component 3: Top 3 cities from firebase
+        component 4: total user count 
+
+Task 24: create 100 fake accounts and render analaytics in /admin
+
+Task 25: create new gitBranch called SDK 
+
+Task 26: disconnect firabase deleting env file
+
+Task 27: begin SDK building

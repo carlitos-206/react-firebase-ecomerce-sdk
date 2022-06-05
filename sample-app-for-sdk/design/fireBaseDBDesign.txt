@@ -1,0 +1,5 @@
+COLLECTIONS             DOCUMENT                            FIELDS
+
+users              forEach(users_username)  ->    {username, email, sha256(password), UA([deviceName_collection]), UA([deviceBrowser_collection]), UA([ip_collections]) sex, age, race, purchaseHist(total) }
+
+items              forEach(item)            ->     {item_name, item_gender, item_price, item_quantity, item_img, isOnSale}

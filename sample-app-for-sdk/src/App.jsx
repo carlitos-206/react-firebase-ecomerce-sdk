@@ -1,6 +1,11 @@
 import React from 'react';
 
-import { Routes, Route, Link } from 'react-router-dom';
+import {
+  Routes,
+  Route,
+  Link,
+  Outlet,
+} from 'react-router-dom';
 
 import AdminForm from './components/admin/adminForm';
 
@@ -9,7 +14,7 @@ function App() {
     <div>
       <p><Link to="/"> Home </Link></p>
       {/* <p><Link to="/admin"> Admin </Link></p> */}
-      {/* <Outlet /> */}
+      <Outlet />
       <Routes>
         <Route path="/admin" element={<AdminForm />} />
       </Routes>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import './adminForm.css';
 //  BootStrap Components
@@ -15,26 +15,68 @@ import Button from '@mui/material/Button';
 //  Currency Input NPM --- cant validate so RIP
 // import MoneyInput from '@rschpdr/react-money-input';
 
+// UUID
+// import { v4 } from 'uuid';
+// Firebase DB
+import { addDoc, collection } from 'firebase/firestore';
+// import {
+//   ref,
+//   uploadBytes,
+//   getDownloadURL,
+
+// } from 'firebase/storage';
+import db from '../../db';
+
 export default function AdminForm() {
   // React Form Validation Hook
   const { register, formState: { errors }, handleSubmit } = useForm();
-
-  // Remove in production
-  const onSubmit = (data) => console.log(data);
+  // Only gets called if theres no errors
+  const onSubmit = (data) => {
+    // const uploadFile = () => {
+    //   if (data.img == null) return;
+    //   const imageRef = ref(storage, `images/${data.itemName + v4()}`);
+    //   uploadBytes(imageRef, data.img).then((snapshot) => {
+    //     getDownloadURL(snapshot.ref).then((url) => {
+    //       console.log(url);
+    //     });
+    //   });
+    // };
+    // uploadFile();
+    const entriesRef = collection(db, 'storeItems');
+    console.log(data);
+    addDoc(entriesRef, {
+      itemName: data.itemName,
+      itemGender: data.gender,
+      itemQuantity: data.quantity,
+      itemImg: '',
+      itemSalePercent: data.salePercent,
+      createdAt: new Date(),
+    });
+  };
 
   // Clear Form
   const clearForm = () => document.getElementsByClassName('adminForm')[0].reset();
 
-  // Item On Sale Field
-  const displaySaleBar = () => { const checkBox = document.getElementById('saleCheckBox'); if (checkBox.checked === true) { document.getElementById('saleField').setAttribute('style', 'display:block'); } else { document.getElementById('saleField').setAttribute('style', 'display:none'); } };
-  
-  // Handle if(isOnSale)
-  
+  const displaySaleBar = () => {
+    const checkBox = document.getElementById('saleCheckBox');
+    if (checkBox.checked === true) {
+      document.getElementById('saleField').setAttribute('style', 'display:block');
+      document.getElementById('saleError').setAttribute('style', 'display:block');
+    } else {
+      document.getElementById('saleField').setAttribute('style', 'display:none');
+      document.getElementById('saleError').setAttribute('style', 'display:none');
+      document.getElementById('saleField').value = '';
+    }
+  };
+  // const handleSaleChange = (e) => {
+  //   setSale(sale + e.target.value);
+  // };
   return (
     <div className="adminFormContainer">
       <Card className="adminFormCard">
         <Card.Body>
           <Card.Title>Create New Store Item</Card.Title>
+          <br />
           <Form onSubmit={handleSubmit(onSubmit)} className="adminForm">
             <Form.Group className="mb-3 itemNameField" controlId="formItemID">
               <Form.Label>Enter Item Title</Form.Label>
@@ -81,9 +123,9 @@ export default function AdminForm() {
             <Form.Group>
               <Form.Label>Place Item On Sale</Form.Label>
               <input type="checkbox" id="saleCheckBox" onClick={(e) => { displaySaleBar(e); }} />
-              <input type="number" step={1} id="saleField" style={{ display: 'none' }} placeholder="0" {...register('salePercent', { required: true })} />
-              <div className="errors">
-                {errors.salePercent?.type === 'required' && 'Uncheck box or enter sale percent'}
+              <input type="number" step={1} id="saleField" style={{ display: 'none' }} placeholder="0" {...register('salePercent')} />
+              <div className="errors" id="saleError" style={{ display: 'none' }}>
+                <p>Uncheck box or enter sale percent</p>
               </div>
             </Form.Group>
             <Button variant="outlined" color="error" onClick={(e) => { clearForm(e); }}>Cancel</Button>

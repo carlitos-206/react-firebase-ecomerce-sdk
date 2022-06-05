@@ -28,7 +28,13 @@ import { db, imgDB } from '../../db';
 
 export default function AdminForm() {
   // React Form Validation Hook
-  const { register, formState: { errors }, handleSubmit } = useForm();
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+    clearErrors,
+  } = useForm();
+
   // Only gets called if theres no errors
   const [img, setImg] = useState(null);
   const [imgURL, setImgURL] = useState(null);
@@ -54,12 +60,17 @@ export default function AdminForm() {
       itemImg: imgURL,
       itemSalePercent: data.salePercent,
       createdAt: new Date(),
+      updatedAt: new Date(),
     });
   };
 
   // Clear Form
-  const clearForm = () => document.getElementsByClassName('adminForm')[0].reset();
-
+  const clearForm = () => {
+    document.getElementsByClassName('adminForm')[0].reset();
+    clearErrors();
+    document.getElementById('saleError').setAttribute('style', 'display:none');
+    document.getElementById('saleField').setAttribute('style', 'display:none');
+  };
   const displaySaleBar = () => {
     const checkBox = document.getElementById('saleCheckBox');
     if (checkBox.checked === true) {
@@ -114,7 +125,7 @@ export default function AdminForm() {
               </div>
             </Form.Group>
             <Form.Group className="mb-3 itemImgField" controlId="ItemImgID">
-              <Form.Label>Image</Form.Label>
+              <Form.Label>Upload Img</Form.Label>
               <input type="file" {...register('img', { required: true })} onChange={(event) => { setImg(event.target.files[0]); }} />
               <div className="errors">
                 {errors.img?.type === 'required' && 'File Missing'}
@@ -128,7 +139,7 @@ export default function AdminForm() {
                 <p>Uncheck box or enter sale percent</p>
               </div>
             </Form.Group>
-            <Button variant="outlined" color="error" onClick={(e) => { clearForm(e); }}>Cancel</Button>
+            <Button variant="outlined" color="error" onClick={(e) => { clearForm(e); clearErrors(); }}>Cancel</Button>
             <Button variant="outlined" type="Submit">Submit</Button>
           </Form>
         </Card.Body>

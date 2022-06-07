@@ -7,7 +7,7 @@ import {
   Outlet,
 } from 'react-router-dom';
 
-import AdminForm from './components/admin/adminForm';
+import AdminPage from './components/admin/adminPage';
 
 function App() {
   return (
@@ -16,7 +16,7 @@ function App() {
       {/* <p><Link to="/admin"> Admin </Link></p> */}
       <Outlet />
       <Routes>
-        <Route path="/admin" element={<AdminForm />} />
+        <Route path="/admin" element={<AdminPage />} />
       </Routes>
     </div>
   );

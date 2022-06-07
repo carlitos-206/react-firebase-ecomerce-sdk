@@ -3,11 +3,7 @@ import React, { useState } from 'react';
 import './adminForm.css';
 //  BootStrap Components
 import Form from 'react-bootstrap/Form';
-
 import Card from 'react-bootstrap/Card';
-
-//  React Hook Form
-import { useForm } from 'react-hook-form';
 
 //  Material UI Component
 import Button from '@mui/material/Button';
@@ -16,7 +12,7 @@ import Button from '@mui/material/Button';
 // import MoneyInput from '@rschpdr/react-money-input';
 
 // UUID
-// import { v4 } from 'uuid';
+import { v4 } from 'uuid';
 // Firebase DB
 import { addDoc, collection } from 'firebase/firestore';
 import {
@@ -27,47 +23,64 @@ import {
 import { db, imgDB } from '../../db';
 
 export default function AdminForm() {
-  // React Form Validation Hook
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-    clearErrors,
-  } = useForm();
+  // These set of States are from the AdminForm
+  const [itemNameValue, setItemNameValue] = useState(null);
+  const [itemGenderValue, setItemGenderValue] = useState(null);
+  const [itemPriceValue, setItemPriceValue] = useState(null);
+  const [itemQuantityValue, setItemQuantityValue] = useState(null);
+  const [itemImgFile, setItemImgFile] = useState(null);
+  const [itemSalePercentValue, setItemSalePercentValue] = useState(null);
 
-  // Only gets called if theres no errors
-  const [img, setImg] = useState(null);
-  const [imgURL, setImgURL] = useState(null);
-  const onSubmit = (data) => {
-    const uploadFile = () => {
-      if (img == null) return;
-      const imageRef = ref(imgDB, `img/${data.itemName}_img`);
-      uploadBytes(imageRef, img).then((snapshot) => {
-        getDownloadURL(snapshot.ref).then((url) => {
-          console.log(url);
-          setImgURL(url);
+  // This State comes from Firebase Storage
+  // const [imgURL, setImgURL] = useState(null);
+
+  function uploadFileToStorage() {
+    return new Promise((resolve, reject) => {
+      if (itemImgFile !== null || itemImgFile !== '') {
+        const imageRef = ref(imgDB, `img/${itemNameValue.split(' ').join('')}_img---${v4()}`);
+        uploadBytes(imageRef, itemImgFile).then((snapshot) => {
+          getDownloadURL(snapshot.ref).then((url) => {
+            resolve(url.toString());
+          });
         });
-      });
-    };
-    uploadFile();
-    if (imgURL == null) return;
-    const entriesRef = collection(db, 'storeItems');
-    console.log(data);
-    addDoc(entriesRef, {
-      itemName: data.itemName,
-      itemGender: data.gender,
-      itemQuantity: data.quantity,
-      itemImg: imgURL,
-      itemSalePercent: data.salePercent,
-      createdAt: new Date(),
-      updatedAt: new Date(),
+      } else {
+        reject(new Error('file missing'));
+      }
     });
+  }
+  async function uploadToFirestore() {
+    const imgURL = await uploadFileToStorage();
+    const entriesRef = collection(db, 'storeItems');
+    addDoc(entriesRef, {
+      itemName: itemNameValue,
+      itemGender: itemGenderValue,
+      itemQuantity: itemQuantityValue,
+      itemImg: imgURL,
+      itemPrice: itemPriceValue,
+      itemSalePercent: itemSalePercentValue,
+      createdAt: new Date().toString(),
+      updatedAt: new Date().toString(),
+    });
+  }
+  const onSubmit = (e) => {
+    e.preventDefault();
+    // by clearing the form instantly it signals the user the request was sent
+    document.getElementsByClassName('adminForm')[0].reset();
+    document.getElementById('saleField').setAttribute('style', 'display:none');
+    document.getElementById('saleError').setAttribute('style', 'display:none');
+    document.getElementById('saleField').value = null;
+    uploadToFirestore();
+    setItemNameValue(null);
+    setItemGenderValue(null);
+    setItemPriceValue(null);
+    setItemQuantityValue(null);
+    setItemImgFile(null);
+    setItemSalePercentValue(null);
   };
 
   // Clear Form
   const clearForm = () => {
     document.getElementsByClassName('adminForm')[0].reset();
-    clearErrors();
     document.getElementById('saleError').setAttribute('style', 'display:none');
     document.getElementById('saleField').setAttribute('style', 'display:none');
   };
@@ -79,7 +92,7 @@ export default function AdminForm() {
     } else {
       document.getElementById('saleField').setAttribute('style', 'display:none');
       document.getElementById('saleError').setAttribute('style', 'display:none');
-      document.getElementById('saleField').value = '';
+      document.getElementById('saleField').value = null;
     }
   };
   return (
@@ -88,58 +101,41 @@ export default function AdminForm() {
         <Card.Body>
           <Card.Title>Create New Store Item</Card.Title>
           <br />
-          <Form onSubmit={handleSubmit(onSubmit)} className="adminForm">
+          <Form onSubmit={(e) => { onSubmit(e); }} className="adminForm">
             <Form.Group className="mb-3 itemNameField" controlId="formItemID">
               <Form.Label>Enter Item Title</Form.Label>
-              <input className="adminInputFields" id="adminItemNameField" type="text" {...register('itemName', { required: true, minLength: 2, maxLength: 20 })} placeholder="Enter Item Name" />
-              <div className="errors">
-                {errors.itemName?.type === 'required' && 'Item name is required'}
-                {errors.itemName?.type === 'minLength' && 'Must be more than 2 letters'}
-                {errors.itemName?.type === 'maxLength' && 'Must be less than 20 letters'}
-              </div>
+              <input className="adminInputFields" id="adminItemNameField" type="text" placeholder="Enter Item Name" onChange={(e) => { setItemNameValue(e.target.value); }} minLength="2" required />
             </Form.Group>
             <Form.Group className="mb-3 itemGenderField" controlId="formGenderID">
               <Form.Label>Gender</Form.Label>
-              <select {...register('gender', { required: true })}>
-                <option value="" selected hidden>Select an Option</option>
+              <select onChange={(e) => { setItemGenderValue(e.target.value); }} required>
+                <option value="" selected hidden disabled>Select an Option</option>
                 <option value="unisex">Unisex</option>
                 <option value="men">Men</option>
                 <option value="female">Female</option>
               </select>
-              <div className="errors">
-                {errors.gender?.type === 'required' && 'Select Gender'}
-              </div>
             </Form.Group>
             <Form.Group className="mb-3 itemPriceField" controlId="formPriceID">
               <Form.Label>Price $</Form.Label>
-              <input type="number" step="0.01" placeholder="Enter Price" {...register('price', { required: true })} />
-              <div className="errors">
-                {errors.price?.type === 'required' && 'Enter Price'}
-              </div>
+              <input type="number" step="0.01" placeholder="Enter Price" onChange={(e) => { setItemPriceValue(e.target.value); }} required />
             </Form.Group>
             <Form.Group className="mb-3 itemQuantityField" controlId="formQuantentyID">
               <Form.Label>Quantity:</Form.Label>
-              <input type="number" step="1" placeholder="Enter Available Quantity" {...register('quantity', { required: true })} />
-              <div className="errors">
-                {errors.quantity?.type === 'required' && 'Enter Quantity'}
-              </div>
+              <input type="number" step="1" placeholder="Enter Available Quantity" onChange={(e) => { setItemQuantityValue(e.target.value); }} required />
             </Form.Group>
             <Form.Group className="mb-3 itemImgField" controlId="ItemImgID">
               <Form.Label>Upload Img</Form.Label>
-              <input type="file" {...register('img', { required: true })} onChange={(event) => { setImg(event.target.files[0]); }} />
-              <div className="errors">
-                {errors.img?.type === 'required' && 'File Missing'}
-              </div>
+              <input type="file" onChange={(e) => { setItemImgFile(e.target.files[0]); }} required />
             </Form.Group>
             <Form.Group>
               <Form.Label>Place Item On Sale</Form.Label>
               <input type="checkbox" id="saleCheckBox" onClick={(e) => { displaySaleBar(e); }} />
-              <input type="number" step={1} id="saleField" style={{ display: 'none' }} placeholder="0" {...register('salePercent')} />
+              <input type="number" step={1} id="saleField" style={{ display: 'none' }} placeholder="0" onChange={(e) => { setItemSalePercentValue(e.target.value); }} />
               <div className="errors" id="saleError" style={{ display: 'none' }}>
                 <p>Uncheck box or enter sale percent</p>
               </div>
             </Form.Group>
-            <Button variant="outlined" color="error" onClick={(e) => { clearForm(e); clearErrors(); }}>Cancel</Button>
+            <Button variant="outlined" color="error" onClick={(e) => { clearForm(e); }}>Cancel</Button>
             <Button variant="outlined" type="Submit">Submit</Button>
           </Form>
         </Card.Body>

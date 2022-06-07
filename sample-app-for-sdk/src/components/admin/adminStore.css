@@ -1,0 +1,24 @@
+*{
+  padding: 0px;
+  margin: 0px;
+}
+
+.adminStore{
+}
+
+.adminStoreItemCard{
+  border: solid black 5px;
+  width: fit-content;
+  color: blue;
+  position: relative;
+  margin: 1%;
+  left: 1%;
+  top: 10px;
+  border-radius: 5%;
+  padding: 1% ;
+  display: inline-block;
+}
+img{
+  width: 18rem;
+  height: 24rem;
+}

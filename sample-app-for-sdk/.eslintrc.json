@@ -1,7 +1,14 @@
 {
   "extends": "airbnb",
   "rules":{ 
-    "react/jsx-props-no-spreading": "off"
+    "react/jsx-props-no-spreading": "off",
+    "radix": "off",
+    "react/jsx-one-expression-per-line": "off",
+    "consistent-return":"off",
+    "no-unused-expressions": "off",
+    "arrow-parens":"off",
+    "arrow-body-style": "off",
+    "no-unused-vars":"off"
   }
 }
 

@@ -6,13 +6,15 @@
 /* Admin CSS */
 .adminFormCard {
   border: solid gray 2px;
-  width: 25%;
+  width: min-content;
   display: flex;
   padding: 1%;
   border-radius: 2.5%;
+  margin: 2%;
 }
 .errors{
   display: flex;
   justify-content: flex-end;
   color: red;
 }
+

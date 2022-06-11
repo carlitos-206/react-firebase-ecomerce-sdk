@@ -1,1 +1,45 @@
+*{
+  padding: 0px;
+  margin:0px;
+}
+:root{
+  background: linear-gradient(-145deg, #699a3b, #9de73c, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  animation: gradient 5s ease infinite;
+}
 
+@keyframes gradient {
+  0% {
+      background-position: 0% 50%;
+  }
+  50% {
+      background-position: 100% 50%;
+  }
+  100% {
+      background-position: 0% 50%;
+  }
+}
+
+#storeLogoImg{
+  width: 50%;
+  height: 10vh;
+  position: relative;
+  justify-content: center;
+  left: 25%;
+  top: 2vh;
+}
+.navBar {
+  position: relative;
+  width: fit-content;
+  display: flex;
+  left: 10%;
+  top: 10vh;
+}
+h2 {
+  margin: .25rem;
+  width: fit-content;
+}
+a {
+  text-decoration: none;
+  color: blue;
+}

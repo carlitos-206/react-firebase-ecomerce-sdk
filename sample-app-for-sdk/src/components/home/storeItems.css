@@ -1,0 +1,42 @@
+*{
+  padding: 0px;
+  margin: 0px;
+}
+
+.storeContainer {
+  padding: .5%;
+  width: 80;
+  position: relative;
+  top: 10vh;
+  justify-content: center;
+}
+
+  .storeItemCard{
+    border-radius: 5%;
+    width: max-content;
+    height: 53vh;
+    display: inline-block;
+    margin: .5%;
+    padding: .5%;
+    position: relative;
+    left: 5%;
+    background-color: rgb(255, 255, 255);
+  }
+    #itemPrice{
+      color: green;
+      font-weight: bolder;
+      position: relative;
+      left: 80%;
+    }
+    #isOnSale{
+      position: absolute;
+      z-index: +2;
+      left: 42%;
+      bottom: -.06vh;
+      width: fit-content;
+      color: red;
+      padding: 5%;
+      border-radius: 50%;
+      font-weight: bolder;
+      font-size: 2rem;
+    }

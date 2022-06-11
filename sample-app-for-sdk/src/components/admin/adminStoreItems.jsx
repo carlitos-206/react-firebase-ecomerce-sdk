@@ -43,8 +43,7 @@ export default function AdminStoreItems() {
             <p>New Price: ${withSalePrice(entry.data().itemSalePercent, entry.data().itemPrice)}</p>
             {/* <p>{entry.data().createdAt}</p>
             <p>{entry.data().updatedAt}</p> */}
-            <Button variant="outlined" color="error">Delete Item</Button>
-            <Button variant="outlined" color="success">Update Item</Button>
+            <Button variant="outlined" color="success">ADD TO CART</Button>
           </div>
         );
       })}

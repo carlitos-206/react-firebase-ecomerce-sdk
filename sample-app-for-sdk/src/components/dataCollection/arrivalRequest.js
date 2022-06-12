@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 // Firabase
 import { addDoc, collection } from 'firebase/firestore';
-import { db, imgDB } from '../../db';
+import { db } from '../../db';
 
 // UserAgent
 const parser = require('ua-parser-js');
@@ -34,6 +34,7 @@ export default function CollectArrival() {
         name: tree.browser.name,
         version: tree.browser.version,
       },
+      date_visited: new Date().toString(),
     });
   }
   useEffect(() => {

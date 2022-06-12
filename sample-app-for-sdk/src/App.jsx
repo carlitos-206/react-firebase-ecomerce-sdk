@@ -15,10 +15,11 @@ import MenQuery from './components/home/menQuery';
 import WomenQuery from './components/home/womenQuery';
 import SaleQuery from './components/home/saleQuery';
 import UnisexQuery from './components/home/unisexQuery';
-import CollectArrival from './components/dataCollection/arrivalRequest';
+// import CollectArrival from './components/dataCollection/arrivalRequest';
+import AccountWindow from './components/userAccounts/Account';
 
 function App() {
-  CollectArrival();
+  // CollectArrival();
   return (
     <div className="appContainer">
       <Link to="/"><img src={logo} alt="storeLogo" id="storeLogoImg" /></Link>
@@ -30,7 +31,7 @@ function App() {
         <h2><Link to="/onSale">SALE</Link> |</h2>
       </div>
       <Routes>
-        <Route exact path="/" element={<StoreItems />} />
+        <Route exact path="/" element={<><StoreItems /> <AccountWindow /></>} />
         <Route exact path="/admin" element={<AdminPage />} />
         <Route path="/all" element={<StoreItems />} />
         <Route path="/men" element={<MenQuery />} />

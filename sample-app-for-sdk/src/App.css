@@ -3,9 +3,9 @@
   margin:0px;
 }
 :root{
-  background: linear-gradient(-145deg, #699a3b, #9de73c, #23a6d5, #23d5ab);
-  background-size: 400% 400%;
-  animation: gradient 5s ease infinite;
+  background: linear-gradient(-145deg, #304227, #ff0000, #ffea00, #fd0000);
+  background-size: 1% 1%;
+  animation: gradient 60s ease infinite;
 }
 
 @keyframes gradient {
@@ -34,6 +34,9 @@
   display: flex;
   left: 10%;
   top: 10vh;
+  background-color: rgba(0, 153, 255, 0.531);
+  backdrop-filter: blur(2px);
+  border:groove rgb(116, 83, 83) 10px;
 }
 h2 {
   margin: .25rem;
@@ -41,5 +44,13 @@ h2 {
 }
 a {
   text-decoration: none;
-  color: blue;
+  color: rgb(0, 255, 0);
+}
+
+.imgFrame{
+  border: groove gray 1rem;
+  background-color: rgba(23, 191, 62, 0.282);
+  backdrop-filter: blur(2px);
+  position: relative;
+  width: 100%;
 }

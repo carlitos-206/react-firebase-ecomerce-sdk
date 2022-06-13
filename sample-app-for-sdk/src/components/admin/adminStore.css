@@ -3,7 +3,8 @@
   margin: 0px;
 }
 
-.adminStore{
+.adminFormCard{
+  background-color: aliceblue;
 }
 
 .adminStoreItemCard{
@@ -17,6 +18,7 @@
   border-radius: 5%;
   padding: 1% ;
   display: inline-block;
+  background-color: aliceblue;
 }
 img{
   width: 18rem;

@@ -32,9 +32,9 @@ export default function AdminStoreItems() {
   };
   return (
     <div className="adminStore">
-      {entries.map((entry) => {
+      {entries.map((entry, index) => {
         return (
-          <div className="adminStoreItemCard">
+          <div className="adminStoreItemCard" key={index.toString()}>
             <h1 className="adminStoreItemCardTitle">{entry.data().itemName}</h1>
             <img src={entry.data().itemImg} alt={`${entry.data().itemName}_img`} />
             <p>Price: ${entry.data().itemPrice}</p>

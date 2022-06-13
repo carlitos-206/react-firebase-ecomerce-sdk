@@ -22,7 +22,9 @@ function App() {
   // CollectArrival();
   return (
     <div className="appContainer">
-      <Link to="/"><img src={logo} alt="storeLogo" id="storeLogoImg" /></Link>
+      <div className="imgFrame">
+        <Link to="/"><img src={logo} alt="storeLogo" id="storeLogoImg" /></Link>
+      </div>
       <div className="navBar">
         <h2><Link to="/all"> All</Link> |</h2>
         <h2><Link to="/men"> Men</Link> |</h2>
@@ -33,11 +35,11 @@ function App() {
       <Routes>
         <Route exact path="/" element={<><StoreItems /> <AccountWindow /></>} />
         <Route exact path="/admin" element={<AdminPage />} />
-        <Route path="/all" element={<StoreItems />} />
-        <Route path="/men" element={<MenQuery />} />
-        <Route path="/women" element={<WomenQuery />} />
-        <Route path="/unisex" element={<UnisexQuery />} />
-        <Route path="/onSale" element={<SaleQuery />} />
+        <Route path="/all" element={<><StoreItems /> <AccountWindow /></>} />
+        <Route path="/men" element={<><MenQuery /> <AccountWindow /></>} />
+        <Route path="/women" element={<><WomenQuery /> <AccountWindow /></>} />
+        <Route path="/unisex" element={<><UnisexQuery /> <AccountWindow /></>} />
+        <Route path="/onSale" element={<><SaleQuery /> <AccountWindow /></>} />
         {/* wildCard path */}
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

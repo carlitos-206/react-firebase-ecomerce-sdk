@@ -2,7 +2,39 @@
   padding: 0px;
   margin: 0px;
 }
+/* THIS IS FOR ACCOUNT VERIFIED */
+.accountVerified{
+  position: absolute;
+  top: 15vh;
+  right: 12%;
+  display: flex;
+  justify-content: center;
+  background-color: rgba(240, 248, 255, 0.105);
+  backdrop-filter: blur(2px);
+  border: groove 15px red;
+  padding: .2%;
+}
 
+#logOutInBtn{
+  width: 100%
+}
+
+.closeFormWindow{
+  position: absolute;
+  left: 90%;
+  top: 1vh;
+  font-size: 1rem;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: red;
+  background-color: rgba(0, 0, 0, 0);
+  border: #000;
+}
+
+.closeFormWindow:hover{
+  cursor: pointer;
+}
+
+/* THIS IS FOR THE ACCOUNT VERIFICATION PROCESS */
 input {
   margin: 5%;
 }
@@ -21,7 +53,7 @@ input {
   border-radius: 10%;
   display: flex;
   align-items: center;
-
+  
 }
 
 #signInBtn{
@@ -58,7 +90,7 @@ input {
 .accountButton {
   position: absolute;
   z-index: 7;
-  top: 2vh;
+  top: 25vh;
   left: 80%;
   border-radius: 10%;
 }
@@ -72,6 +104,13 @@ input {
   position: relative;
   top: 3vh;
   left: 60%;
+}
+#returnToSignInFormBtn{
+  width: 35%;
+  height: 2vh;
+  position: absolute;
+  left: 15%;
+  bottom: 6.25vh;
 }
 
 /* button animation src: https://codepen.io/kocsten/pen/rggjXp */

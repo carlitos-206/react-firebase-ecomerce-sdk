@@ -52,6 +52,7 @@ export default function AdminForm() {
     const imgURL = await uploadFileToStorage();
     const entriesRef = collection(db, 'storeItems');
     addDoc(entriesRef, {
+      uniqueID: `${v4()}`,
       itemName: itemNameValue,
       itemGender: itemGenderValue,
       itemQuantity: itemQuantityValue,

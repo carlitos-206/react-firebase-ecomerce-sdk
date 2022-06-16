@@ -7,19 +7,16 @@
   background-size: 1% 1%;
   animation: gradient 60s ease infinite;
 }
-
 @keyframes gradient {
-  0% {
-      background-position: 0% 50%;
+  0% {background-position: 0% 50%;
   }
   50% {
-      background-position: 100% 50%;
+    background-position: 100% 50%;
   }
   100% {
-      background-position: 0% 50%;
+    background-position: 0% 50%;
   }
 }
-
 #storeLogoImg{
   width: 50%;
   height: 10vh;
@@ -30,27 +27,35 @@
 }
 .navBar {
   position: relative;
+  width: -moz-fit-content;
   width: fit-content;
   display: flex;
   left: 10%;
   top: 10vh;
   background-color: rgba(0, 153, 255, 0.531);
+  -webkit-backdrop-filter: blur(2px);
   backdrop-filter: blur(2px);
   border:groove rgb(116, 83, 83) 10px;
 }
 h2 {
   margin: .25rem;
+  width: -moz-fit-content;
   width: fit-content;
 }
 a {
   text-decoration: none;
   color: rgb(0, 255, 0);
 }
-
 .imgFrame{
   border: groove gray 1rem;
   background-color: rgba(23, 191, 62, 0.282);
+  -webkit-backdrop-filter: blur(2px);
   backdrop-filter: blur(2px);
   position: relative;
   width: 100%;
+}
+img :hover{scale: 1.6;
+}
+.footer{
+  position: absolute;
 }

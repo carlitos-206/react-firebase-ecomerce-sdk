@@ -9,6 +9,7 @@ import {
   query,
 } from 'firebase/firestore';
 import { db } from '../../db';
+import Footer from '../global/footer';
 
 export default function StoreItems() {
   const [entries, setEntries] = useState([]);
@@ -36,18 +37,20 @@ export default function StoreItems() {
     }
   };
   return (
-    <div className="storeContainer">
-      {entries.map((entry, index) => {
-        return (
-          <div className="storeItemCard" key={index.toString()}>
-            <h1 id="itemName">{entry.data().itemName}</h1>
-            <img id="itemImg" src={entry.data().itemImg} alt={`${entry.data().itemName}_img`} />
-            <p id="itemPrice">${entry.data().itemPrice}</p>
-            <p id="isOnSale">{isOnSale(entry.data().itemSalePercent)}</p>
-            <Button variant="contained" color="success" id="itemButton">ADD TO CART</Button>
-          </div>
-        );
-      })}
+    <div className="store">
+      <div className="storeContainer">
+        {entries.map((entry, index) => {
+          return (
+            <div className="storeItemCard" key={index.toString()}>
+              <h1 id="itemName">{entry.data().itemName}</h1>
+              <img id="itemImg" src={entry.data().itemImg} alt={`${entry.data().itemName}_img`} />
+              <p id="itemPrice">${entry.data().itemPrice}</p>
+              <p id="isOnSale">{isOnSale(entry.data().itemSalePercent)}</p>
+              <Button variant="outlined" id="itemButton">ADD TO CART</Button>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }

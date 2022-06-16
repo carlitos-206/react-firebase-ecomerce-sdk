@@ -2,13 +2,12 @@
   padding: 0px;
   margin: 0px;
 }
-
 .adminFormCard{
   background-color: aliceblue;
 }
-
 .adminStoreItemCard{
   border: solid black 5px;
+  width: -moz-fit-content;
   width: fit-content;
   color: blue;
   position: relative;
@@ -23,4 +22,29 @@
 img{
   width: 18rem;
   height: 24rem;
+}
+.editForm{
+  width: 100%;
+  background-color: rgba(255, 0, 0, 0.257);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  height: 100vh;
+  display: flex;
+  padding: 2%;
+  position: fixed;
+  top: -2vh;
+  display: flex;
+}
+#editFormCSS{
+  position: relative;
+  left: 40%;
+}
+#btn1{
+  margin-right: 10%;
+  padding: 2%;
+}
+#btn3, #btn4{
+  margin-right: 10%;
+  padding: 1%;
+  width: 30%;
 }

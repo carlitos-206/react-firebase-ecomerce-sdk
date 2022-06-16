@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './adminPage.css';
+import { Link } from 'react-router-dom';
 import {
   collection,
   query,
@@ -43,7 +44,8 @@ export default function AdminPage() {
     alert('Invalid Key or Select File Again');
   }
   return (
-    <div>
+    <div className="adminPageContainer">
+      <h2 id="adminToHomeLink"><Link to="/"> Return to client screen</Link> |</h2>
       <div className="adminKeyForm glow-on-hover">
         <h1>Insert Key</h1>
         <input className="adminMainKey" id="adminKeyField" type="file" onChange={(e) => { readText(e); }} />

@@ -9,9 +9,14 @@ import {
   query,
 } from 'firebase/firestore';
 import { db } from '../../db';
-import Footer from '../global/footer';
-
 export default function StoreItems() {
+  const [cart, setCartArray] = useState([]);
+  // setCartArray(localStorage.setItem('cart', JSON.stringify([...cart, item])));
+  function addToCart(item) {
+    setCartArray(prevCart => [...prevCart, item]);
+    localStorage.setItem('cart', JSON.stringify([...cart, item]));
+  }
+
   const [entries, setEntries] = useState([]);
   useEffect(() => {
     const items = query(
@@ -46,7 +51,13 @@ export default function StoreItems() {
               <img id="itemImg" src={entry.data().itemImg} alt={`${entry.data().itemName}_img`} />
               <p id="itemPrice">${entry.data().itemPrice}</p>
               <p id="isOnSale">{isOnSale(entry.data().itemSalePercent)}</p>
-              <Button variant="outlined" id="itemButton">ADD TO CART</Button>
+              <Button variant="outlined" id="itemButton" onClick={(e) => { addToCart(e.target.value = {
+                'itemID' : entry.data().uniqueID,
+                'itemName': entry.data().itemName,
+                'itemImg': entry.data().itemImg,
+                'itemPrice': entry.data().itemPrice,
+                'itemQuantity': 1,
+            })}} >ADD TO CART</Button>
             </div>
           );
         })}

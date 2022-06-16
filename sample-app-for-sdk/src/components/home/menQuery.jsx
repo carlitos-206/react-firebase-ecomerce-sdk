@@ -12,7 +12,20 @@ import {
 import { db } from '../../db';
 
 export default function MenQuery() {
+  const [cart, setCartArray] = useState([]);
+  function addToCart(item) {
+    if(localStorage.getItem('men') === null) {
+    setCartArray(prevCart => [...prevCart, item]);
+    localStorage.setItem('men', JSON.stringify([...cart, item]));
+    } else {
+      setCartArray(localStorage.getItem('men'))
+      setCartArray(prevCart => [...prevCart, item]);
+      localStorage.setItem('men', JSON.stringify([...cart, item]));
+    } 
+  }
+
   const [entries, setEntries] = useState([]);
+
   useEffect(() => {
     const items = query(collection(db, 'storeItems'), where('itemGender', '==', 'men'));
     const unsubscribe = onSnapshot(
@@ -43,7 +56,13 @@ export default function MenQuery() {
             <img id="itemImg" src={entry.data().itemImg} alt={`${entry.data().itemName}_img`} />
             <p id="itemPrice">${entry.data().itemPrice}</p>
             <p id="isOnSale">{isOnSale(entry.data().itemSalePercent)}</p>
-            <Button variant="outlined" id="itemButton">ADD TO CART</Button>
+            <Button variant="outlined" id="itemButton" onClick={(e) => { addToCart(e.target.value = {
+                'itemID' : entry.data().uniqueID,
+                'itemName': entry.data().itemName,
+                'itemImg': entry.data().itemImg,
+                'itemPrice': entry.data().itemPrice,
+                'itemQuantity': 1,
+            })}} >ADD TO CART</Button>
           </div>
         );
       })}

@@ -15,7 +15,7 @@ export default function WomenQuery() {
   const [cart, setCartArray] = useState([]);
   function addToCart(item) {
     setCartArray(prevCart => [...prevCart, item]);
-    localStorage.setItem('cart', JSON.stringify([...cart, item]));
+    localStorage.setItem('women', JSON.stringify([...cart, item]));
   }
   const [entries, setEntries] = useState([]);
   useEffect(() => {

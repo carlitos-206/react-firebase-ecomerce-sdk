@@ -1,0 +1,22 @@
+*{ 
+  padding: 0px;
+  margin: 0px;
+  }
+  /* Admin CSS */
+  .adminFormContainer{
+    display: flex;
+    justify-content: center;
+  }
+  .adminFormCard {
+    border: solid gray 2px;
+    width: min-content;
+    display: flex;
+    padding: 1%;
+    border-radius: 2.5%;
+    margin: 2%;
+  }
+  .errors{
+    display: flex;
+    justify-content: flex-end;
+    color: red;
+  }

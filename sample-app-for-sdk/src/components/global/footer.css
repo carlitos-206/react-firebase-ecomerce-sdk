@@ -1,0 +1,12 @@
+*{
+  padding: 0px;
+  margin: 0px;
+}
+.footer{
+  background-color: rgba(128, 128, 128, 0.34);
+  backdrop-filter: blur(6.5px);
+  padding: .9%;
+  display: inline;
+  justify-content: center;
+  margin-bottom: 20%;
+}

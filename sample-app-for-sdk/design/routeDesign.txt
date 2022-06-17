@@ -1,0 +1,48 @@
+/create_user_profile
+    query for username inside firebase 
+      if(username !=db){
+        createUser(
+          entries: {reference firebaseDBDesign}
+        )
+      }else{
+        {validations.js}
+      }
+
+/login
+
+    query username and match password field
+      pass password field through sha256 algo to match the string in firebase
+    
+    if(match){
+      login()
+    }else{
+      {login_validations.js}
+    }
+
+
+/admin
+  * heres where the admin will be able to interact with firbase by updating, creating or deleting store items with a form 
+  * it will render entire items list as card components plus delete and update buttons  
+
+/index
+  <nav> logo <login/createUser> </nav>
+  <carusel> {this can only be updated by dev for the moment } </carusel>
+    <items>
+      ....query by gender or all
+     </items>
+
+/cart
+
+  * display cart plus add checkout button 
+    
+    if(user_isLogin){
+      update(purchaseHist+ new_total)
+    }else if{
+      asktoLogin()
+    }else{
+      continue
+    }
+
+
+  * the cart is a prefill form where only the quantity can be updated or item deleted 
+  ** the form will be a component that gets maps the useState([])
